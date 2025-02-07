@@ -1,6 +1,12 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 
 app = FastAPI()
+
+
+class Addition(BaseModel):
+    a: int
+    b: int
 
 
 @app.get("/")
@@ -16,9 +22,9 @@ async def hello_name(name: str):
 
 
 @app.post("/addition")
-async def addition(a: int, b: int):
+async def addition(payload: Addition):
     """Addition of two numbers"""
-    result = a + b
+    result = payload.a + payload.b
     return {"result": result}
 
 
