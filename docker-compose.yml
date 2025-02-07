@@ -6,15 +6,7 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./app/:/usr/src/app/
-  svelte:
-    container_name: svelte
-    build: ./svelte
-    restart: unless-stopped
-    ports:
-      - 5173:5173
-    volumes:
-      - ./svelte:/usr/src/app/
+      - .:/usr/src/app/
   db:
     image: postgres
     restart: unless-stopped
