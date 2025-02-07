@@ -7,10 +7,11 @@ WORKDIR /usr/src/app
 
 RUN pip install --no-cache-dir -U pip-tools pip
 COPY requirements.in /usr/src/app/
+RUN pip-compile requirements.in -o requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app /usr/src/app/
+COPY *.py /usr/src/app/
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["fastapi", "run", "main.py"]
 
 EXPOSE 8000
