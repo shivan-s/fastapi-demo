@@ -1,14 +1,27 @@
 <script lang="ts">
 	import type { PageProps } from './$types';
+	import { enhance } from '$app/forms';
 
 	let { data, form }: PageProps = $props();
 </script>
 
 <h1>Addition</h1>
 
-<span>{data.message}</span>
+{#await data.result}
+	Loading...
+{:then result}
+	{result.message}
+{/await}
 
-<form method="POST" id="addition">
+<form
+	method="POST"
+	id="addition"
+	use:enhance={() => {
+		return async ({ update }) => {
+			await update({ reset: false });
+		};
+	}}
+>
 	<label>a:<input name="a" /></label>
 	<span>+</span>
 	<label>b:<input name="b" /></label>

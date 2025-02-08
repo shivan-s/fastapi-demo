@@ -4,10 +4,9 @@ const API_URL = new URL('http://localhost:8000/');
 
 export const load: PageServerLoad = async ({ fetch }) => {
 	const response = await fetch(new URL('/', API_URL));
-	const result = (await response.json()) as { message: string };
-	const message = result.message;
+	const result = response.json() as Promise<{ message: string }>;
 	return {
-		message
+		result
 	};
 };
 
